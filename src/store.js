@@ -9,9 +9,13 @@ export default new Vuex.Store({
 		itemName :'',
 		category :'',
 		price : null,
-		url :''
+		url :'',
+		items :[]
 	},
 	mutations: {
+		setItems(state,payload){
+			state.items = payload
+		},
 		setItemName(state,payload){
 			state.itemName = payload
 		},
@@ -53,6 +57,14 @@ export default new Vuex.Store({
 		},
 		getImage(context,data){
 			this.state.url = data.target.files[0]
+		},
+		allItem(context){
+			axios.get('http://localhost:3000/item/listitem')
+			.then(data=>{
+				console.log(data)
+				let result = data.data
+				context.commit('setItems',result)
+			})
 		}
 	}
 })
