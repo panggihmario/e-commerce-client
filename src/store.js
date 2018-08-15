@@ -55,6 +55,7 @@ export default new Vuex.Store({
 					url : result.data.link
 				})
 				.then(data=>{
+					this.state.url =''
 					console.log(data)
 				})
 				.catch(err=>{
@@ -90,7 +91,7 @@ export default new Vuex.Store({
 			formData.append('item',this.state.url)
 			axios.post('http://localhost:3000/upload',formData)
 			.then(result=>{
-				console.log("==========",result)
+				// console.log("==========",result)
 				axios.post(`http://localhost:3000/item/edit/${id}`,{
 					name : this.state.itemName,
 					category : this.state.category,
@@ -99,12 +100,25 @@ export default new Vuex.Store({
 				})
 				.then(data=>{
 					console.log(data)
+					
 					context.dispatch('allItem')
 				})
 				.catch(err=>{
 					console.log(err)
 				})
 			})
+		},
+		deleteItem(context,id){
+			axios.delete(`http://localhost:3000/item/delete/${id}`,{
+				_id : id
+			})
+			.then(data=>{
+				context.dispatch('allItem')
+			})
+			.catch(err=>{
+				console.log(err)
+			})
 		}
+		
 	}
 })

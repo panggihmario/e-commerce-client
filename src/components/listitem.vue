@@ -38,7 +38,7 @@
                   <v-btn outline color="black" @click="openModalEdit(item)">Edit</v-btn>
                     </v-flex>
                   <v-flex xs6>
-                  <v-btn outline color="red">Delete</v-btn>
+                  <v-btn outline color="red" @click="deleteItem(item._id)">Delete</v-btn>
                   <!-- <Modal /> -->
                     </v-flex>
           </v-layout>
@@ -60,7 +60,7 @@ export default {
   },
 	methods :{
 		...mapActions([
-			"allItem","openModalEdit"
+			"allItem","openModalEdit","deleteItem"
 		])
 	},
 	computed :{
